@@ -1,32 +1,55 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Tabs, List } from '@ant-design/react-native';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { Tabs } from "@ant-design/react-native";
+
+import ResidentInfoScreen from "../Resident/ResidentInfoScreen";
+import ResidentApartmentInfoScreen from "../Resident/ResidentApartmentInfoScreen";
+import ResidentFeedbackListScreen from "../Resident/ResidentFeedbackListScreen";
+import ResidentServiceListScreen from "../Resident/ResidentServiceListScreen";
+import ResidentNotificationListScreen from "../Resident/ResidentNotificationListScreen";
+import ResidentInvoiceListScreen from "../Resident/ResidentInvoiceListScreen";
+import ResidentContractListScreen from "../Resident/ResidentContractListScreen";
 
 export default function ResidentDashboard() {
   const tabs = [
-    { title: 'Thông tin cư trú' },
-    { title: 'Hóa đơn' },
-    { title: 'Thông báo' },
+    { title: "Thông tin cư trú" },
+    { title: "Căn hộ" },
+    { title: "Phản hồi" },
+    { title: "Dịch vụ" },
+    { title: "Thông báo" },
+    { title: "Hóa đơn" },
+    { title: "Hợp đồng" },
   ];
 
   return (
-    <Tabs tabs={tabs}>
+    <Tabs tabs={tabs} tabBarPosition="top">
+      {/* TAB: Thông tin cư trú */}
       <View style={styles.tabContent}>
-        <List renderHeader={'Thông tin cá nhân'}>
-          <List.Item>Tên: Nguyễn Văn A</List.Item>
-          <List.Item>Căn hộ: B302</List.Item>
-        </List>
+        <ResidentInfoScreen />
       </View>
+      {/* TAB: Căn hộ */}
       <View style={styles.tabContent}>
-        <List renderHeader={'Hóa đơn'}>
-          <List.Item>Điện tháng 5 - 200.000đ</List.Item>
-          <List.Item>Nước tháng 5 - 80.000đ</List.Item>
-        </List>
+        <ResidentApartmentInfoScreen />
       </View>
+      {/* TAB: Phản hồi */}
       <View style={styles.tabContent}>
-        <List renderHeader={'Thông báo'}>
-          <List.Item>Thông báo đóng phí quản lý</List.Item>
-        </List>
+        <ResidentFeedbackListScreen />
+      </View>
+      {/* TAB: Dịch vụ */}
+      <View style={styles.tabContent}>
+        <ResidentServiceListScreen />
+      </View>
+      {/* TAB: Thông báo */}
+      <View style={styles.tabContent}>
+        <ResidentNotificationListScreen />
+      </View>
+      {/* TAB: Hóa đơn */}
+      <View style={styles.tabContent}>
+        <ResidentInvoiceListScreen />
+      </View>
+      {/* TAB: Hợp đồng */}
+      <View style={styles.tabContent}>
+        <ResidentContractListScreen />
       </View>
     </Tabs>
   );

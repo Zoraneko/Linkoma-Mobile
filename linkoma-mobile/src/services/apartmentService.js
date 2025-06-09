@@ -21,3 +21,21 @@ export const removeApartment = async (id) => {
   apartments = apartments.filter((a) => a.id !== id);
   return true;
 };
+
+/* // Lấy thông tin căn hộ theo id
+const getApartmentById = async (id) => {
+  try {
+    const res = await fetch(
+      `https://linkoma-be.onrender.com/v1/apartments/${id}`,
+      { method: "GET", headers: { "Content-Type": "application/json" } }
+    );
+    if (!res.ok) throw new Error("Không tìm thấy căn hộ");
+    return await res.json();
+  } catch (e) {
+    return null;
+  }
+}; */
+
+export default {
+  getApartmentById,
+};

@@ -9,7 +9,7 @@ export const getAllResidents = async () => [...residents];
 export const getResidentById = async (id) => residents.find((r) => r.id === id);
 export const createResident = async (data) => {
   const newResident = { ...data, id: idCounter++ };
-    residents.push(newResident);
+  residents.push(newResident);
   return newResident;
 };
 export const updateResident = async (id, data) => {
@@ -19,4 +19,23 @@ export const updateResident = async (id, data) => {
 export const removeResident = async (id) => {
   residents = residents.filter((r) => r.id !== id);
   return true;
+};
+
+// Lấy thông tin cư dân theo id
+/* const getResidentById = async (id) => {
+  // Giả sử API: GET /residents/:id
+  try {
+    const res = await fetch(
+      `https://linkoma-be.onrender.com/v1/residents/${id}`,
+      { method: "GET", headers: { "Content-Type": "application/json" } }
+    );
+    if (!res.ok) throw new Error("Không tìm thấy cư dân");
+    return await res.json();
+  } catch (e) {
+    return null;
+  }
+}; */
+
+export default {
+  getResidentById,
 };

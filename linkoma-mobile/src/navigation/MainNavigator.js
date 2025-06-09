@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ActivityIndicator, View } from "react-native";
 import LoginScreen from "../screens/Auth/LoginScreen";
 import SignupScreen from "../screens/Auth/SignupScreen";
 import ForgotPasswordScreen from "../screens/Auth/ForgotPasswordScreen";
@@ -29,10 +30,46 @@ import InvoiceViewScreen from "../screens/Admin/InvoiceManagement/InvoiceViewScr
 import ContractCreateScreen from "../screens/Admin/ContractManagement/ContractCreateScreen";
 import ContractEditScreen from "../screens/Admin/ContractManagement/ContractEditScreen";
 import ContractViewScreen from "../screens/Admin/ContractManagement/ContractViewScreen";
+import ResidentFeedbackCreateScreen from "../screens/Resident/ResidentFeedbackCreateScreen";
+import ResidentFeedbackEditScreen from "../screens/Resident/ResidentFeedbackEditScreen";
+import ResidentFeedbackViewScreen from "../screens/Resident/ResidentFeedbackViewScreen";
+import ResidentServiceListScreen from "../screens/Resident/ResidentServiceListScreen";
+import ResidentServiceRegisterScreen from "../screens/Resident/ResidentServiceRegisterScreen";
+import ResidentNotificationListScreen from "../screens/Resident/ResidentNotificationListScreen";
+import ResidentNotificationViewScreen from "../screens/Resident/ResidentNotificationViewScreen";
+import ResidentInvoiceListScreen from "../screens/Resident/ResidentInvoiceListScreen";
+import ResidentInvoiceViewScreen from "../screens/Resident/ResidentInvoiceViewScreen";
+import ResidentInvoicePaymentScreen from "../screens/Resident/ResidentInvoicePaymentScreen";
+import ResidentContractListScreen from "../screens/Resident/ResidentContractListScreen";
+import ResidentContractViewScreen from "../screens/Resident/ResidentContractViewScreen";
+import { useAuth } from "../context/AuthContext";
 
 const Stack = createNativeStackNavigator();
 
-export default function MainNavigator() {
+export default function MainNavigator({ navigation }) {
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && user) {
+      // Điều hướng tự động dựa vào role
+      if (user.role === "admin") {
+        navigation.reset({ index: 0, routes: [{ name: "AdminDashboard" }] });
+      } else if (user.role === "employee") {
+        navigation.reset({ index: 0, routes: [{ name: "EmployeeDashboard" }] });
+      } else {
+        navigation.reset({ index: 0, routes: [{ name: "ResidentDashboard" }] });
+      }
+    }
+  }, [user, loading, navigation]);
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
   return (
     <Stack.Navigator
       initialRouteName="Onboarding"
@@ -173,6 +210,66 @@ export default function MainNavigator() {
       <Stack.Screen
         name="ContractView"
         component={ContractViewScreen}
+        options={{ title: "Chi tiết hợp đồng" }}
+      />
+      <Stack.Screen
+        name="ResidentFeedbackCreate"
+        component={ResidentFeedbackCreateScreen}
+        options={{ title: "Gửi phản hồi mới" }}
+      />
+      <Stack.Screen
+        name="ResidentFeedbackEdit"
+        component={ResidentFeedbackEditScreen}
+        options={{ title: "Sửa phản hồi" }}
+      />
+      <Stack.Screen
+        name="ResidentFeedbackView"
+        component={ResidentFeedbackViewScreen}
+        options={{ title: "Chi tiết phản hồi" }}
+      />
+      <Stack.Screen
+        name="ResidentServiceList"
+        component={ResidentServiceListScreen}
+        options={{ title: "Dịch vụ đã đăng ký" }}
+      />
+      <Stack.Screen
+        name="ResidentServiceRegister"
+        component={ResidentServiceRegisterScreen}
+        options={{ title: "Đăng ký dịch vụ" }}
+      />
+      <Stack.Screen
+        name="ResidentNotificationList"
+        component={ResidentNotificationListScreen}
+        options={{ title: "Thông báo" }}
+      />
+      <Stack.Screen
+        name="ResidentNotificationView"
+        component={ResidentNotificationViewScreen}
+        options={{ title: "Chi tiết thông báo" }}
+      />
+      <Stack.Screen
+        name="ResidentInvoiceList"
+        component={ResidentInvoiceListScreen}
+        options={{ title: "Hóa đơn của bạn" }}
+      />
+      <Stack.Screen
+        name="ResidentInvoiceView"
+        component={ResidentInvoiceViewScreen}
+        options={{ title: "Chi tiết hóa đơn" }}
+      />
+      <Stack.Screen
+        name="ResidentInvoicePayment"
+        component={ResidentInvoicePaymentScreen}
+        options={{ title: "Thanh toán hóa đơn" }}
+      />
+      <Stack.Screen
+        name="ResidentContractList"
+        component={ResidentContractListScreen}
+        options={{ title: "Hợp đồng của bạn" }}
+      />
+      <Stack.Screen
+        name="ResidentContractView"
+        component={ResidentContractViewScreen}
         options={{ title: "Chi tiết hợp đồng" }}
       />
     </Stack.Navigator>
