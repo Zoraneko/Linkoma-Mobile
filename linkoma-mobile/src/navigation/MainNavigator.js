@@ -7,6 +7,9 @@ import RoleSelectScreen from '../screens/Auth/RoleSelectScreen';
 import AdminDashboard from '../screens/Dashboard/AdminDashboard';
 import ResidentDashboard from '../screens/Dashboard/ResidentDashboard';
 import EmployeeDashboard from '../screens/Dashboard/EmployeeDashboard';
+import ResidentCreateScreen from '../screens/Admin/ResidentManagement/ResidentCreateScreen';
+import ResidentEditScreen from '../screens/Admin/ResidentManagement/ResidentEditScreen';
+import ResidentViewScreen from '../screens/Admin/ResidentManagement/ResidentViewScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +24,9 @@ export default function MainNavigator() {
       <Stack.Screen name="AdminDashboard" component={AdminDashboard} />
       <Stack.Screen name="ResidentDashboard" component={ResidentDashboard} />
       <Stack.Screen name="EmployeeDashboard" component={EmployeeDashboard} />
+        <Stack.Screen name="CreateResident" component={ResidentCreateScreen} options={{ title: 'Thêm cư dân' }} />
+      <Stack.Screen name="EditResident" component={ResidentEditScreen} options={{ title: 'Sửa cư dân' }} />
+      <Stack.Screen name="ViewResident" component={ResidentViewScreen} options={{ title: 'Chi tiết cư dân' }} />
     </Stack.Navigator>
   );
 }
