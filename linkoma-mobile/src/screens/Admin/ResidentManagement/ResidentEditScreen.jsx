@@ -1,18 +1,18 @@
-import React from 'react';
-import DynamicForm from '../../../components/DynamicForm';
-
+import React from "react";
+import DynamicForm from "../../../components/DynamicForm";
+import { updateResident } from "../../../services/residentService";
 
 const fields = [
-  { key: 'name', label: 'Tên cư dân', type: 'text' },
-  { key: 'dob', label: 'Ngày sinh', type: 'date' },
-  { key: 'gender', label: 'Giới tính', type: 'select', options: ['Nam', 'Nữ'] },
+  { key: "name", label: "Tên cư dân", type: "text" },
+  { key: "dob", label: "Ngày sinh", type: "date" },
+  { key: "gender", label: "Giới tính", type: "select", options: ["Nam", "Nữ"] },
 ];
 
 export default function ResidentEditScreen({ route, navigation }) {
   const { resident } = route.params;
 
-  const handleUpdate = (data) => {
-    console.log('Update:', data);
+  const handleUpdate = async (data) => {
+    await updateResident(resident.id, data);
     navigation.goBack();
   };
 

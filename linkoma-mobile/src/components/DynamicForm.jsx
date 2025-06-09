@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TextInput } from "react-native";
 import {
-  InputItem,
   DatePicker,
   List,
   Button,
@@ -31,7 +30,10 @@ export default function DynamicForm({
   };
 
   const renderField = (field) => {
-    const value = formData[field.key];
+    const value =
+      formData[field.key] !== undefined
+        ? formData[field.key]
+        : initialData[field.key] ?? "";
 
     if (readOnly) {
       return (
@@ -52,15 +54,27 @@ export default function DynamicForm({
       case "text":
       case "number":
         return (
-          <InputItem
+          <List.Item
             key={field.key}
-            type={field.type}
-            value={value}
-            placeholder={field.placeholder || ""}
-            onChange={(v) => handleChange(field.key, v)}
+            style={{
+              flexDirection: "column",
+              alignItems: "flex-start",
+              paddingVertical: 8,
+              height: "auto",
+              minHeight: 80,
+            }}
           >
-            {field.label}
-          </InputItem>
+            <Text style={styles.label}>{field.label}</Text>
+            <TextInput
+              value={value !== undefined && value !== null ? String(value) : ""}
+              placeholder={field.placeholder || ""}
+              onChangeText={(v) => handleChange(field.key, v)}
+              keyboardType={field.type === "number" ? "numeric" : "default"}
+              style={styles.textInput}
+              editable={!readOnly}
+              clearButtonMode="while-editing"
+            />
+          </List.Item>
         );
 
       case "date":
@@ -112,7 +126,20 @@ export default function DynamicForm({
   const confirmAction = () => {
     setConfirmVisible(false);
     if (confirmType === "submit") {
-      onSubmit && onSubmit(formData);
+      // Đảm bảo đủ key cho tất cả các trường và chuẩn hóa kiểu dữ liệu
+      const result = {};
+      fields.forEach((field) => {
+        let value = formData[field.key];
+        if (value === undefined || value === "") {
+          if (field.type === "number") value = null;
+          else if (field.type === "date") value = null;
+          else value = "";
+        } else if (field.type === "number") {
+          value = isNaN(Number(value)) ? null : Number(value);
+        }
+        result[field.key] = value;
+      });
+      onSubmit && onSubmit(result);
     } else if (confirmType === "delete") {
       onDelete && onDelete();
     }
@@ -165,6 +192,18 @@ export default function DynamicForm({
 const styles = StyleSheet.create({
   container: { padding: 10 },
   button: { marginTop: 20 },
-  label: { fontWeight: "bold" },
+  label: { fontWeight: "bold", marginBottom: 6, fontSize: 15 },
   value: { marginTop: 5, marginBottom: 10 },
+  textInput: {
+    width: "100%",
+    minHeight: 44,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 16,
+    backgroundColor: "#fff",
+    marginBottom: 8,
+  },
 });
