@@ -17,7 +17,8 @@ export default function ResidentCreateScreen({ navigation }) {
 
   return (
     <DynamicForm
-      fields={fields}
+          fields={fields}
+          initialData={{}} 
       onSubmit={handleCreate}
     />
   );

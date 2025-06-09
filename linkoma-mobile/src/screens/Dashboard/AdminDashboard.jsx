@@ -44,7 +44,7 @@ export default function AdminDashboard() {
             <List.Item
               key={resident.id}
               extra={
-                <Flex>
+                <Flex style={styles.flexRow}>
                   <Button
                     size="small"
                     onPress={() => handleView(resident)}
@@ -99,4 +99,5 @@ export default function AdminDashboard() {
 const styles = StyleSheet.create({
   tabContent: { flex: 1, padding: 10 },
   smallBtn: { marginHorizontal: 4 },
+  flexRow: { flexDirection: 'row', justifyContent: 'flex-end' },
 });
