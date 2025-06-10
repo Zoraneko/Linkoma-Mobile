@@ -5,11 +5,11 @@ import {
   TouchableOpacity,
   Text,
   StatusBar,
-  SafeAreaView,
   Dimensions,
   Alert,
   Image,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import {
@@ -52,6 +52,7 @@ const { width, height } = Dimensions.get("window");
 
 export default function AdminDashboard() {
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
   const [residents, setResidents] = React.useState([]);
   const [apartments, setApartments] = React.useState([]);
   const [feedbacks, setFeedbacks] = React.useState([]);
@@ -450,9 +451,8 @@ export default function AdminDashboard() {
       },
     ]);
   };
-
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor="#2C3E50" />
 
       {/* Header */}
@@ -465,7 +465,7 @@ export default function AdminDashboard() {
       <View style={styles.content}>{renderTabContent()}</View>
 
       {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
+      <View style={[styles.bottomNav, { paddingBottom: insets.bottom }]}>
         {tabs.map((tab, index) => (
           <TouchableOpacity
             key={index}
@@ -497,7 +497,7 @@ export default function AdminDashboard() {
           </TouchableOpacity>
         ))}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

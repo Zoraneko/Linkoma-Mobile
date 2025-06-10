@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  SafeAreaView,
   StatusBar,
   ScrollView,
   TouchableOpacity,
@@ -11,6 +10,7 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -26,6 +26,7 @@ export default function ModernScreenWrapper({
 }) {
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
+  const insets = useSafeAreaInsets();
 
   // Automatically hide navigation header when this component mounts
   useEffect(() => {
@@ -41,9 +42,8 @@ export default function ModernScreenWrapper({
       setRefreshing(false);
     }
   };
-
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor={headerColor} />
 
       {/* Modern Header */}
@@ -93,7 +93,7 @@ export default function ModernScreenWrapper({
           </ScrollView>
         )}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
