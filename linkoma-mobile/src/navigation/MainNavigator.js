@@ -95,52 +95,52 @@ export default function MainNavigator({ navigation }) {
       <Stack.Screen
         name="AdminDashboard"
         component={AdminDashboard}
-        options={{ headerBackVisible: false }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ResidentDashboard"
         component={ResidentDashboard}
-        options={{ headerBackVisible: false }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="EmployeeDashboard"
         component={EmployeeDashboard}
-        options={{ headerBackVisible: false }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="CreateResident"
         component={ResidentCreateScreen}
-        options={{ title: "Thêm cư dân" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="EditResident"
         component={ResidentEditScreen}
-        options={{ title: "Sửa cư dân" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ViewResident"
         component={ResidentViewScreen}
-        options={{ title: "Chi tiết cư dân" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ApartmentCreate"
         component={ApartmentCreateScreen}
-        options={{ title: "Thêm căn hộ" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ApartmentEdit"
         component={ApartmentEditScreen}
-        options={{ title: "Sửa căn hộ" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ApartmentView"
         component={ApartmentViewScreen}
-        options={{ title: "Chi tiết căn hộ" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="FeedbackCreate"
         component={FeedbackCreateScreen}
-        options={{ title: "Thêm phản hồi" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="FeedbackEdit"
@@ -150,7 +150,7 @@ export default function MainNavigator({ navigation }) {
       <Stack.Screen
         name="FeedbackView"
         component={FeedbackViewScreen}
-        options={{ title: "Chi tiết phản hồi" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ServiceFeeCreate"
@@ -170,7 +170,7 @@ export default function MainNavigator({ navigation }) {
       <Stack.Screen
         name="NotificationCreate"
         component={NotificationCreateScreen}
-        options={{ title: "Thêm thông báo" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="NotificationEdit"
@@ -185,37 +185,37 @@ export default function MainNavigator({ navigation }) {
       <Stack.Screen
         name="InvoiceCreate"
         component={InvoiceCreateScreen}
-        options={{ title: "Thêm hóa đơn" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="InvoiceEdit"
         component={InvoiceEditScreen}
-        options={{ title: "Sửa hóa đơn" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="InvoiceView"
         component={InvoiceViewScreen}
-        options={{ title: "Chi tiết hóa đơn" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ContractCreate"
         component={ContractCreateScreen}
-        options={{ title: "Thêm hợp đồng" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ContractEdit"
         component={ContractEditScreen}
-        options={{ title: "Sửa hợp đồng" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ContractView"
         component={ContractViewScreen}
-        options={{ title: "Chi tiết hợp đồng" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ResidentFeedbackCreate"
         component={ResidentFeedbackCreateScreen}
-        options={{ title: "Gửi phản hồi mới" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ResidentFeedbackEdit"
@@ -225,7 +225,7 @@ export default function MainNavigator({ navigation }) {
       <Stack.Screen
         name="ResidentFeedbackView"
         component={ResidentFeedbackViewScreen}
-        options={{ title: "Chi tiết phản hồi" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ResidentServiceList"
@@ -240,7 +240,7 @@ export default function MainNavigator({ navigation }) {
       <Stack.Screen
         name="ResidentNotificationList"
         component={ResidentNotificationListScreen}
-        options={{ title: "Thông báo" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ResidentNotificationView"
@@ -250,12 +250,12 @@ export default function MainNavigator({ navigation }) {
       <Stack.Screen
         name="ResidentInvoiceList"
         component={ResidentInvoiceListScreen}
-        options={{ title: "Hóa đơn của bạn" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ResidentInvoiceView"
         component={ResidentInvoiceViewScreen}
-        options={{ title: "Chi tiết hóa đơn" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ResidentInvoicePayment"

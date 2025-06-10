@@ -16,10 +16,17 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    await authService.login(email, password);
-    const current = await authService.getCurrentUser();
-    setUser(current);
-    return current;
+    try {
+      console.log("AuthContext: Bắt đầu gọi authService.login");
+      const user = await authService.login(email, password);
+      console.log("AuthContext: authService.login trả về:", user);
+
+      setUser(user);
+      return user;
+    } catch (error) {
+      console.log("AuthContext: Lỗi trong login:", error);
+      throw error;
+    }
   };
 
   const logout = async () => {
