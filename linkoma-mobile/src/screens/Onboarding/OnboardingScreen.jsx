@@ -1,13 +1,16 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function OnboardingScreen({ navigation }) {
+  const insets = useSafeAreaInsets();
+  
   const handleNext = () => {
     navigation.navigate("Login");
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom }]}>
       <Image
         source={require("../../../assets/onboarding1.png")}
         style={styles.image}

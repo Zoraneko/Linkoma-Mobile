@@ -5,10 +5,10 @@ import {
   TouchableOpacity,
   Text,
   StatusBar,
-  SafeAreaView,
   Dimensions,
   Image,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { MaterialIcons, FontAwesome5, Ionicons } from "@expo/vector-icons";
 
 import ResidentInfoScreen from "../Resident/ResidentInfoScreen";
@@ -23,6 +23,7 @@ const { width, height } = Dimensions.get("window");
 
 export default function ResidentDashboard() {
   const [activeTab, setActiveTab] = React.useState(0);
+  const insets = useSafeAreaInsets();
 
   const tabs = [
     {
@@ -107,9 +108,8 @@ export default function ResidentDashboard() {
         return <ResidentInfoScreen />;
     }
   };
-
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
       <StatusBar barStyle="light-content" backgroundColor="#1976D2" />
 
       {/* Header */}
@@ -122,7 +122,7 @@ export default function ResidentDashboard() {
       <View style={styles.content}>{renderTabContent()}</View>
 
       {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
+      <View style={[styles.bottomNav, { paddingBottom: insets.bottom }]}>
         {tabs.map((tab, index) => (
           <TouchableOpacity
             key={index}
@@ -154,7 +154,7 @@ export default function ResidentDashboard() {
           </TouchableOpacity>
         ))}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

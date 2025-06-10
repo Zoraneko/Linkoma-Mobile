@@ -1,24 +1,59 @@
-// Mock Apartment Service
-let apartments = [
-  { id: 1, name: "Block A - 101", block: "A", floor: 1 },
-  { id: 2, name: "Block B - 202", block: "B", floor: 2 },
-];
-let idCounter = 3;
+// Mock Apartment Service with enhanced data using centralized mock data
+import { mockDataStore, delay, generateId, findById, updateById, deleteById, addEntity } from './mockData';
 
-export const getAllApartments = async () => [...apartments];
-export const getApartmentById = async (id) =>
-  apartments.find((a) => a.id === id);
+// Use centralized apartment data
+let apartments = mockDataStore.apartments;
+let idCounter = 4;
+
+export const getAllApartments = async (filters = {}) => {
+  await delay();
+  let filteredApartments = [...apartments];
+  
+  // Apply filters
+  if (filters.block) {
+    filteredApartments = filteredApartments.filter(apt => apt.block === filters.block);
+  }
+  if (filters.status) {
+    filteredApartments = filteredApartments.filter(apt => apt.status === filters.status);
+  }
+  if (filters.minPrice) {
+    filteredApartments = filteredApartments.filter(apt => apt.rentPrice >= filters.minPrice);
+  }
+  if (filters.maxPrice) {
+    filteredApartments = filteredApartments.filter(apt => apt.rentPrice <= filters.maxPrice);
+  }
+  
+  return filteredApartments;
+};
+
+export const getApartmentById = async (id) => {
+  await delay(300);
+  return apartments.find((a) => a.id === parseInt(id));
+};
+
 export const createApartment = async (data) => {
-  const newApartment = { ...data, id: idCounter++ };
+  await delay(800);
+  const newApartment = { 
+    ...data, 
+    id: idCounter++,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
   apartments.push(newApartment);
   return newApartment;
 };
+
 export const updateApartment = async (id, data) => {
-  apartments = apartments.map((a) => (a.id === id ? { ...a, ...data } : a));
-  return apartments.find((a) => a.id === id);
+  await delay(800);
+  apartments = apartments.map((a) => 
+    a.id === parseInt(id) ? { ...a, ...data, updatedAt: new Date().toISOString() } : a
+  );
+  return apartments.find((a) => a.id === parseInt(id));
 };
+
 export const removeApartment = async (id) => {
-  apartments = apartments.filter((a) => a.id !== id);
+  await delay(600);
+  apartments = apartments.filter((a) => a.id !== parseInt(id));
   return true;
 };
 
@@ -37,5 +72,9 @@ const getApartmentById = async (id) => {
 }; */
 
 export default {
+  getAllApartments,
   getApartmentById,
+  createApartment,
+  updateApartment,
+  removeApartment,
 };

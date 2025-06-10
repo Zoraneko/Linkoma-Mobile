@@ -1,33 +1,100 @@
-import axios from "axios";
-import { Platform } from "react-native";
-import { getToken } from "./tokenHelper";
+// Mock API Service - Simulates HTTP requests for development
+import { delay } from "./mockData";
 
-const api = axios.create({
-  baseURL: "https://linkoma-be.onrender.com/v1",
-  headers: {
-    "Content-Type": "application/json",
-  },
+// Mock API responses with consistent format
+const createMockResponse = (data, status = 200) => ({
+  data,
+  status,
+  statusText: "OK",
+  headers: {},
+  config: {}
 });
 
-// Instance không interceptor cho login
-const apiNoAuth = axios.create({
-  baseURL: "https://linkoma-be.onrender.com/v1",
-  headers: {
-    "Content-Type": "application/json",
+// Mock HTTP methods
+const mockApi = {
+  get: async (url, config = {}) => {
+    console.log(`Mock GET: ${url}`);
+    await delay();
+    
+    // Simulate different responses based on URL
+    if (url.includes("/apartments")) {
+      return createMockResponse({
+        success: true,
+        data: [], // This will be handled by individual services
+        message: "Success"
+      });
+    }
+    
+    return createMockResponse({
+      success: true,
+      data: null,
+      message: "Mock GET response"
+    });
   },
-});
-
-api.interceptors.request.use(async (config) => {
-  // Chỉ gắn Authorization nếu đã có token
-  const token = await getToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  } else {
-    // Nếu không có token, đảm bảo không có header Authorization
-    delete config.headers.Authorization;
+  
+  post: async (url, data, config = {}) => {
+    console.log(`Mock POST: ${url}`, data);
+    await delay();
+    
+    return createMockResponse({
+      success: true,
+      data: null,
+      message: "Mock POST response"
+    });
+  },
+  
+  put: async (url, data, config = {}) => {
+    console.log(`Mock PUT: ${url}`, data);
+    await delay();
+    
+    return createMockResponse({
+      success: true,
+      data: null,
+      message: "Mock PUT response"
+    });
+  },
+  
+  patch: async (url, data, config = {}) => {
+    console.log(`Mock PATCH: ${url}`, data);
+    await delay();
+    
+    return createMockResponse({
+      success: true,
+      data: null,
+      message: "Mock PATCH response"
+    });
+  },
+  
+  delete: async (url, config = {}) => {
+    console.log(`Mock DELETE: ${url}`);
+    await delay();
+    
+    return createMockResponse({
+      success: true,
+      message: "Mock DELETE response"
+    });
   }
-  return config;
-});
+};
+
+// Mock request interceptor
+mockApi.interceptors = {
+  request: {
+    use: (onFulfilled, onRejected) => {
+      console.log("Mock request interceptor registered");
+      return { eject: () => {} };
+    }
+  },
+  response: {
+    use: (onFulfilled, onRejected) => {
+      console.log("Mock response interceptor registered");
+      return { eject: () => {} };
+    }
+  }
+};
+
+// Create mock instance
+const api = mockApi;
+const apiNoAuth = mockApi;
 
 export { api, apiNoAuth };
 export default api;

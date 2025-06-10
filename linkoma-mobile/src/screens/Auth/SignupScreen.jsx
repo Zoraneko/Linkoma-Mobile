@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { InputItem, Button, List, Toast } from '@ant-design/react-native';
+import { SafeAreaWrapper } from '../../components';
 
 export default function SignupScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -14,9 +15,8 @@ export default function SignupScreen({ navigation }) {
       Toast.fail('Vui lòng nhập đủ thông tin', 1);
     }
   };
-
   return (
-    <View style={styles.container}>
+    <SafeAreaWrapper style={styles.container}>
       <List renderHeader={'Đăng ký'}>
         <InputItem value={username} onChange={setUsername} placeholder="Tên đăng nhập">
           Tên
@@ -28,7 +28,7 @@ export default function SignupScreen({ navigation }) {
       <Button type="primary" style={styles.button} onPress={handleSignup}>
         Đăng ký
       </Button>
-    </View>
+    </SafeAreaWrapper>
   );
 }
 
